@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechSolutions - Desarrollo de Software</title>
+    <style>
+        /* CONFIGURACIÓN BÁSICA DEL BODY */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #87ceeb 100%);
+            min-height: 100vh;
+        }
+
+        /* HEADER - ENCABEZADO DE LA PÁGINA */
+        .header {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* EFECTO DE PARTÍCULAS FLOTANTES EN EL HEADER */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="60" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="80" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="90" r="1" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+
+        /* ANIMACIÓN DE FLOTACIÓN PARA LAS PARTÍCULAS */
+        @keyframes float {
+            0% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-10px) translateX(5px); }
+            100% { transform: translateY(0px) translateX(0px); }
+        }
+
+        /* CONTENEDOR DEL LOGO */
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ESTILO DEL LOGO PRINCIPAL */
+        .logo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            border-radius: 50%;
+            border: 4px solid rgba(135, 206, 235, 0.5);
+            box-shadow: 0 0 30px rgba(135, 206, 235, 0.3);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        /* EFECTO HOVER EN EL LOGO */
+        .logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(135, 206, 235, 0.5);
+        }
+
+        /* LOGO DEL NOMBRE DE LA EMPRESA */
+        .logo-name {
+            margin-top: 20px;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        /* CONTENEDOR DEL SLOGAN */
+        .slogan-container {
+            width: 400px;
+            max-width: 90%;
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* TEXTO DEL SLOGAN */
+        .slogan-text {
+            margin: 0;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* NAVEGACIÓN */
+        nav {
+            background: rgba(45, 55, 72, 0.95);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding: 0 20px;
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #87ceeb;
+        }
+
+        /* CONTENEDOR PRINCIPAL DEL CONTENIDO */
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* TÍTULOS PRINCIPALES */
+        h1, h2, h3 {
+            color: #1e3c72;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* PÁRRAFOS DE TEXTO */
+        p {
+            color: #2c5364;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* BOTÓN PARA EXPANDIR SECCIÓN */
+        .expand-button {
+            background: linear-gradient(135deg, #2a5298, #87ceeb);
+            color: #ffffff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 30px auto;
+            display: block;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(42, 82, 152, 0.3);
+        }
+
+        .expand-button:hover {
+            background: linear-gradient(135deg, #87ceeb, #1e3c72);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 82, 152, 0.4);
+        }
+
+        /* SECCIÓN DE MISIÓN Y VISIÓN */
+        .mission-vision {
+            display: none;
+            width: 85%;
+            margin: 30px auto;
+            padding: 30px;
+            background: rgba(135, 206, 235, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(30, 60, 114, 0.1);
+            border: 1px solid rgba(135, 206, 235, 0.3);
+        }
+
+        .mission-vision.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* TARJETAS DE MISIÓN Y VISIÓN */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(30, 60, 114, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(135, 206, 235, 0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(30, 60, 114, 0.2);
+        }
+
+        .card h3 {
+            color: #1e3c72;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* LISTAS */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: rgba(135, 206, 235, 0.1);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2a5298;
+            transition: all 0.3s ease;
+        }
+
+        ul li:hover {
+            background: rgba(135, 206, 235, 0.2);
+            transform: translateX(5px);
+        }
+
+        /* SERVICIOS */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-item {
+            background: rgba(135, 206, 235, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #2a5298;
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover {
+            background: rgba(135, 206, 235, 0.2);
+            transform: translateX(5px);
+        }
+
+        .service-item h4 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        /* PORTFOLIO */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .portfolio-item {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(135,206,235,0.1));
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(30, 60, 114, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(135, 206, 235, 0.2);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(30, 60, 114, 0.2);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #87ceeb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .portfolio-info {
+            padding: 1.5rem;
+        }
+
+        .portfolio-info h4 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        /* FORMULARIO DE CONTACTO */
+        .contact-container {
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(135,206,235,0.1));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(30, 60, 114, 0.1);
+            border: 1px solid rgba(135, 206, 235, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c5364;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(135, 206, 235, 0.3);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #2a5298;
+            outline: none;
+            box-shadow: 0 0 15px rgba(42, 82, 152, 0.2);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(30, 60, 114, 0.3);
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #2a5298, #87ceeb);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 60, 114, 0.4);
+        }
+
+        /* FOOTER */
+        footer {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* DISEÑO RESPONSIVO */
+        @media (max-width: 768px) {
+            .logo {
+                width: 100px;
+                height: 100px;
+                font-size: 2rem;
+            }
+            
+            .logo-name {
+                font-size: 2rem;
+            }
+            
+            .slogan-container {
+                width: 90%;
+            }
+            
+            main {
+                margin: 20px;
+                padding: 20px;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+
+            .contact-container {
+                margin: 20px;
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo-container">
+            <div class="logo">TS</div>
+            <h1 class="logo-name">TechSolutions</h1>
+        </div>
+        
+        <div class="slogan-container">
+            <p class="slogan-text">"Innovación digital que impulsa tu negocio"</p>
+        </div>
+    </div>
+
+    <!-- NAVEGACIÓN -->
+    <nav>
+        <ul>
+            <li><a href="#about-us">Nosotros</a></li>
+            <li><a href="#services">Servicios</a></li>
+            <li><a href="#examples">Portafolio</a></li>
+            <li><a href="#contact">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        <!-- SOBRE NOSOTROS -->
+        <section id="about-us">
+            <h1>Sobre Nosotros</h1>
+            <p>En TechSolutions, nos especializamos en el desarrollo de software personalizado para empresas. Nuestro objetivo es simplificar y centralizar la gestión de tu negocio en una sola plataforma, permitiéndote llevar el control de todas las áreas clave: ventas, inventarios, clientes, finanzas y más. Adaptamos cada solución a las necesidades específicas de tu negocio, garantizando una administración eficiente, organizada y fácil de usar.</p>
+        </section>
+
+        <!-- BOTÓN EXPANDIR -->
+        <button class="expand-button" onclick="toggleMissionVision()">Ver Misión, Visión y Valores</button>
+
+        <!-- MISIÓN Y VISIÓN -->
+        <div class="mission-vision" id="missionVision">
+            <h2>Nuestra Empresa</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <h3>📋 Misión</h3>
+                    <p>Simplificar y centralizar la gestión empresarial mediante soluciones de software innovadoras, personalizadas y accesibles que optimicen procesos clave como ventas, inventarios, finanzas y atención al cliente, garantizando una administración eficiente y sin complicaciones para las empresas de cualquier tamaño.</p>
+                </div>
+                <div class="card">
+                    <h3>🎯 Visión</h3>
+                    <p>Ser reconocidos como líderes en el desarrollo de aplicaciones empresariales integrales que transformen la manera en que las empresas gestionan sus operaciones, expandiendo nuestro alcance hacia el diseño de soluciones avanzadas, como aplicaciones móviles y herramientas inteligentes.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Valores</h3>
+            <ul>
+                <li><strong>Innovación:</strong> Promovemos soluciones tecnológicas creativas y eficaces adaptadas a las necesidades de nuestros clientes.</li>
+                <li><strong>Compromiso:</strong> Nos esforzamos por cumplir con los más altos estándares de calidad y satisfacción del cliente.</li>
+                <li><strong>Flexibilidad:</strong> Nos adaptamos a las particularidades de cada negocio para ofrecer soluciones personalizadas.</li>
+                <li><strong>Transparencia:</strong> Garantizamos un servicio honesto y ético en todos los aspectos del desarrollo y soporte.</li>
+                <li><strong>Seguridad:</strong> Protegemos la información sensible mediante herramientas robustas de cifrado y control de accesos.</li>
+            </ul>
+        </div>
+
+        <!-- SERVICIOS -->
+        <section id="services">
+            <h1>¿Qué Podemos Hacer?</h1>
+            <div class="services-grid">
+                <div class="service-item">
+                    <h4>💻 Desarrollo Personalizado</h4>
+                    <p>Diseño de soluciones adaptadas a las necesidades específicas de cada empresa.</p>
+                </div>
+                <div class="service-item">
+                    <h4>📊 Gestión Integral</h4>
+                    <p>Sistemas para ventas, inventarios, clientes, proveedores y finanzas en una sola plataforma.</p>
+                </div>
+                <div class="service-item">
+                    <h4>🤖 Automatización</h4>
+                    <p>Reducción de errores mediante módulos con alertas y actualizaciones automáticas.</p>
+                </div>
+                <div class="service-item">
+                    <h4>🎨 Interfaces Intuitivas</h4>
+                    <p>Diseño de sistemas fáciles de usar para empleados y clientes.</p>
+                </div>
+                <div class="service-item">
+                    <h4>📱 Apps Móviles</h4>
+                    <p>Desarrollo de aplicaciones para gestión desde dispositivos móviles.</p>
+                </div>
+                <div class="service-item">
+                    <h4>🔒 Seguridad de Datos</h4>
+                    <p>Implementación de cifrado y roles diferenciados para protección de información.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTAFOLIO -->
+        <section id="examples">
+            <h1>Ejemplos de Nuestro Trabajo</h1>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        [LOGO PROYECTO 1]
+                    </div>
+                    <div class="portfolio-info">
+                        <h4>Sistema de Gestión Empresarial</h4>
+                        <p>Plataforma web completa para la administración de inventarios, ventas y recursos humanos. Incluye dashboards interactivos, reportes en tiempo real y módulos personalizables según las necesidades del cliente.</p>
+                        <p><strong>Tecnologías:</strong> React, Node.js, MongoDB</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        [LOGO PROYECTO 2]
+                    </div>
+                    <div class="portfolio-info">
+                        <h4>App de E-commerce</h4>
+                        <p>Aplicación móvil para tienda en línea con pasarela de pagos integrada, sistema de notificaciones push, seguimiento de pedidos y programa de fidelización de clientes.</p>
+                        <p><strong>Tecnologías:</strong> Flutter, Firebase, Stripe</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACTO -->
+        <section id="contact">
+            <h1>Contáctanos</h1>
+            <div class="contact-container">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="nombre">Nombre Completo</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono">
+                    </div>
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" name="mensaje" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar Mensaje</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 TechSolutions. Todos los derechos reservados.</p>
+        <p>Email: contacto@techsolutions.com | Tel: +57 300 123 4567</p>
+    </footer>
+
+    <script>
+        // Función para mostrar/ocultar misión y visión
+        function toggleMissionVision() {
+            const section = document.getElementById('missionVision');
+            section.classList.toggle('active');
+            const button = event.target;
+            if (section.classList.contains('active')) {
+                button.textContent = 'Ocultar Misión, Visión y Valores';
+            } else {
+                button.textContent = 'Ver Misión, Visión y Valores';
+            }
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por contactarnos! Nos pondremos en contacto contigo pronto.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
